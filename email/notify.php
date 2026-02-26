@@ -12,13 +12,13 @@ function sendTicketNotification($to, $subject, $message) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'irenecarrillo0830@gmail.com'; 
-        $mail->Password   = 'ybxa ggdw ghwp ggda';
+        $mail->Username   = getenv('MAIL_USERNAME');
+        $mail->Password   = getenv('MAIL_PASSWORD');
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 
         // Recipients
-        $mail->setFrom('YOUR_GMAIL@gmail.com', 'IT Help Desk');
+        $mail->setFrom(getenv('MAIL_USERNAME'), 'IT Help Desk');
         $mail->addAddress($to);
 
         // Content

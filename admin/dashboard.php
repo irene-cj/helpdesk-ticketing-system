@@ -58,43 +58,43 @@ $recent = $pdo->query("
     <h4 class="mb-4">Welcome back, <?= htmlspecialchars($_SESSION['name']) ?>!</h4>
 
     <!-- Stats Cards -->
-    <div class="row g-3 mb-4">
-        <div class="col-md-2">
-            <div class="card text-white bg-danger text-center p-3">
-                <h2><?= $stats['critical'] ?></h2>
-                <small>Critical</small>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card text-white bg-primary text-center p-3">
-                <h2><?= $stats['open'] ?></h2>
-                <small>Open</small>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card text-white bg-warning text-center p-3">
-                <h2><?= $stats['in_progress'] ?></h2>
-                <small>In Progress</small>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card text-white bg-success text-center p-3">
-                <h2><?= $stats['resolved'] ?></h2>
-                <small>Resolved</small>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card text-white bg-secondary text-center p-3">
-                <h2><?= $stats['closed'] ?></h2>
-                <small>Closed</small>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card text-white bg-info text-center p-3">
-                <h2><?= $stats['staff'] ?></h2>
-                <small>Staff Users</small>
-            </div>
-        </div>
+<div class="row g-3 mb-4">
+    <div class="col-md-2">
+        <div class="stat-card text-white bg-danger">
+            <h2><?= $stats['critical'] ?></h2>
+            <small>Critical</small>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="stat-card text-white bg-primary">
+        <h2><?= $stats['open'] ?></h2>
+        <small>Open</small>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="stat-card text-white bg-warning">
+        <h2><?= $stats['in_progress'] ?></h2>
+        <small>In Progress</small>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="stat-card text-white bg-success">
+        <h2><?= $stats['resolved'] ?></h2>
+        <small>Resolved</small>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="stat-card text-white bg-secondary">
+        <h2><?= $stats['closed'] ?></h2>
+        <small>Closed</small>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="stat-card text-white bg-info">
+        <h2><?= $stats['staff'] ?></h2>
+        <small>Staff Users</small>
+    </div>
+</div>
     </div>
 
     <!-- Recent Tickets -->
