@@ -29,6 +29,7 @@ $stmt2 = $pdo->prepare("SELECT email FROM users WHERE id = ?");
 $stmt2->execute([$user_id]);
 $user = $stmt2->fetch();
 
+
 sendTicketNotification(
     $user['email'],
     "Ticket #$ticket_id Created — $title",
