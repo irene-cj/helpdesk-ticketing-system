@@ -1,4 +1,4 @@
-# IT Help Desk Ticketing System
+# 🖥️IT Help Desk Ticketing System🖥️
 
 A full-stack web application for managing IT support tickets, built with PHP, MySQL, HTML, CSS, and JavaScript.
 
