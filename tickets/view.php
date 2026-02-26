@@ -50,10 +50,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
 
 // Handle status update (admin only)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isAdmin()) {
-    $status = $_POST['status'];
+    $status      = $_POST['status'];
     $assigned_to = !empty($_POST['assigned_to']) ? $_POST['assigned_to'] : null;
+
     $stmt = $pdo->prepare("UPDATE tickets SET status = ?, assigned_to = ? WHERE id = ?");
     $stmt->execute([$status, $assigned_to, $id]);
+
+    // Send status update email to ticket owner
+    require_once '../email/notify.php';
+    $stmt2 = $pdo->prepare("SELECT u.email, u.name FROM users u JOIN tickets t ON u.id = t.user_id WHERE t.id = ?");
+    $stmt2->execute([$id]);
+    $owner = $stmt2->fetch();
+
+    sendTicketNotification(
+        $owner['email'],
+        "Ticket #$id Status Updated — $status",
+        "Hi {$owner['name']},<br><br>
+        Your support ticket status has been updated.<br><br>
+        <strong>Ticket #:</strong> $id<br>
+        <strong>Title:</strong> {$ticket['title']}<br>
+        <strong>New Status:</strong> $status<br><br>
+        Login to the Help Desk to view updates on your ticket."
+    );
+
+    // Log notification
+    $stmt3 = $pdo->prepare("INSERT INTO notifications (ticket_id, sent_to, message) VALUES (?, ?, ?)");
+    $stmt3->execute([$id, $owner['email'], "Status updated to $status"]);
+
     header("Location: /helpdesk/tickets/view.php?id=" . $id);
     exit();
 }

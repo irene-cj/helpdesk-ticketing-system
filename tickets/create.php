@@ -20,9 +20,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             VALUES (?, ?, ?, ?, ?, 'Open')
         ");
         $stmt->execute([$user_id, $title, $description, $category, $priority]);
-        $ticket_id = $pdo->lastInsertId();
-        header("Location: /helpdesk/tickets/view.php?id=" . $ticket_id);
-        exit();
+$ticket_id = $pdo->lastInsertId();
+
+// Send email notification
+require_once '../email/notify.php';
+$user_email = $_SESSION['name'];
+$stmt2 = $pdo->prepare("SELECT email FROM users WHERE id = ?");
+$stmt2->execute([$user_id]);
+$user = $stmt2->fetch();
+
+sendTicketNotification(
+    $user['email'],
+    "Ticket #$ticket_id Created — $title",
+    "Hi {$_SESSION['name']},<br><br>
+    Your support ticket has been submitted successfully.<br><br>
+    <strong>Ticket #:</strong> $ticket_id<br>
+    <strong>Title:</strong> $title<br>
+    <strong>Priority:</strong> $priority<br>
+    <strong>Category:</strong> $category<br>
+    <strong>Status:</strong> Open<br><br>
+    Our IT team will review your ticket shortly."
+);
+
+// Log notification
+$stmt3 = $pdo->prepare("INSERT INTO notifications (ticket_id, sent_to, message) VALUES (?, ?, ?)");
+$stmt3->execute([$ticket_id, $user['email'], "Ticket created notification sent"]);
+
+header("Location: /helpdesk/tickets/view.php?id=" . $ticket_id);
+exit();
     }
 }
 ?>
