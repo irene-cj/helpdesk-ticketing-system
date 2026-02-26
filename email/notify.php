@@ -4,24 +4,25 @@ use PHPMailer\PHPMailer\Exception;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+// Load .env file manually
+$env = parse_ini_file(__DIR__ . '/../.env');
+
 function sendTicketNotification($to, $subject, $message) {
+    global $env;
     $mail = new PHPMailer(true);
 
     try {
-        // Server settings
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = getenv('MAIL_USERNAME');
-        $mail->Password   = getenv('MAIL_PASSWORD');
+        $mail->Username   = $env['MAIL_USERNAME'];
+        $mail->Password   = $env['MAIL_PASSWORD'];
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 
-        // Recipients
-        $mail->setFrom(getenv('MAIL_USERNAME'), 'IT Help Desk');
+        $mail->setFrom($env['MAIL_USERNAME'], 'IT Help Desk');
         $mail->addAddress($to);
 
-        // Content
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body    = "
