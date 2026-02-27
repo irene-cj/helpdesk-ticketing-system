@@ -84,6 +84,13 @@ helpdesk/
 ├── auth/            # Login, register, logout
 └── email/           # Notification logic
 ```
+## Screenshots
+![Login Page](<img width="1728" height="991" alt="login_page" src="https://github.com/user-attachments/assets/29484392-ad6d-46db-866e-62a9e935effb" />
+)
+![Admin Dashboard] (<img width="1710" height="968" alt="admin_dashboard" src="https://github.com/user-attachments/assets/cde6f661-e528-433a-945a-c81ccfd522d3" />)
+![Staff Dashboard] (<img width="1719" height="842" alt="staff_dashboard" src="https://github.com/user-attachments/assets/49786c5a-f7f7-49c0-a919-f1e0a25efcb3" />)
+![Tickets] (<img width="1728" height="985" alt="admin_ticket_viewing" src="https://github.com/user-attachments/assets/51c9caf9-4da7-483f-ae55-e19cd9b854d2" />)
+
 
 ## Author
 
